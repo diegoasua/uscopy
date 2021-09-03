@@ -22,5 +22,4 @@ setup(
     ],
     keywords="imaging microscopy 2-photon time-series kalman",
     description="A set of tools for routine analysis of bioimaging time-series data.",
-    },
 )

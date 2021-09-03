@@ -1,7 +1,7 @@
 import numpy as np
 from tqdm import tqdm
 
-# TODO: Consider default cast to float64 if safe
+# TODO: Consider default cast to float64 if safe for increased precision
 class KalmanDenoiser:
     _variance = 0.05
     _gain = 0.08
@@ -50,6 +50,7 @@ class KalmanDenoiser:
             predicted = predicted * (ones - estimate)
             previous = corrected
             denoised[i_frame] = corrected
+
         # get rid of extra frame at the end
         denoised = np.delete(denoised, -1)
 
