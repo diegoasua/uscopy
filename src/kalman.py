@@ -2,6 +2,7 @@ import numpy as np
 from tqdm import tqdm
 from numba import jit
 
+
 # TODO: Consider default cast to float64 if safe for increased precision
 class KalmanDenoiser:
     _variance = 0.05
@@ -44,7 +45,6 @@ class KalmanDenoiser:
         ones = np.ones(width, height)
         denoised = np.zeros_like(stack)
 
-        numba.jit(no)
         for i_frame, frame in tqdm(enumerate(stack[1:])):
             estimate = predicted / (predicted + noise)
             corrected = self._gain*previous + (1-self._gain)*frame + estimate*(frame - previous)
