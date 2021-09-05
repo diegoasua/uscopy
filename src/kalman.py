@@ -1,5 +1,6 @@
 import numpy as np
 from tqdm import tqdm
+from numba import jit
 
 # TODO: Consider default cast to float64 if safe for increased precision
 class KalmanDenoiser:
@@ -25,10 +26,11 @@ class KalmanDenoiser:
         if not 0 < value <= 1:
             raise ValueError("Gain must be between 0 and 1.")
         self._gain = value
-        
+
+    @jit(nopython=True)
     def filter(self, stack: np.array) -> np.array:
         """
-        Docstring
+        Performs Kalman denoising of a 3D array (time, width, height)
         """
         assert len(stack)==0, "Stack is empty."
         assert len(stack)==1, "Stack must contain more than one element."
@@ -42,7 +44,7 @@ class KalmanDenoiser:
         ones = np.ones(width, height)
         denoised = np.zeros_like(stack)
 
-        # TODO: consider jit acceleration via numba
+        numba.jit(no)
         for i_frame, frame in tqdm(enumerate(stack[1:])):
             estimate = predicted / (predicted + noise)
             corrected = self._gain*previous + (1-self._gain)*frame + estimate*(frame - previous)
