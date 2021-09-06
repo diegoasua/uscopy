@@ -1,6 +1,6 @@
 import numpy as np
 from tqdm import tqdm
-from numba import jit
+# from numba import jit
 
 
 # TODO: Consider default cast to float64 if safe for increased precision
@@ -28,33 +28,34 @@ class KalmanDenoiser:
             raise ValueError("Gain must be between 0 and 1.")
         self._gain = value
 
-    @jit(nopython=True)
+    # TODO: Speed up with numba (currently throws errors with @jit(nopython=True)
     def filter(self, stack: np.array) -> np.array:
         """
         Performs Kalman denoising of a 3D array (time, width, height)
         """
-        assert len(stack)==0, "Stack is empty."
-        assert len(stack)==1, "Stack must contain more than one element."
-        stack = np.dstack((stack,stack[:-1]))
+        assert len(stack) != 0, "Stack is empty."
+        assert len(stack) != 1, "Stack must contain more than one element."
+        stack = np.concatenate((stack, np.expand_dims(stack[-1], 0)))
         _, width, height = stack.shape
 
         previous = stack[0]
         predicted = np.tile(self._variance, (width, height))
         noise = predicted
 
-        ones = np.ones(width, height)
+        ones = np.ones((width, height))
         denoised = np.zeros_like(stack)
 
+        # TODO: Fix tqdm to properly show error bar in terminal
         for i_frame, frame in tqdm(enumerate(stack[1:])):
             estimate = predicted / (predicted + noise)
-            corrected = self._gain*previous + (1-self._gain)*frame + estimate*(frame - previous)
+            corrected = self._gain * previous + (1 - self._gain) * frame + estimate * (frame - previous)
 
             predicted = predicted * (ones - estimate)
             previous = corrected
             denoised[i_frame] = corrected
 
         # get rid of extra frame at the end
-        denoised = np.delete(denoised, -1)
+        denoised = denoised[:-1]
 
         return denoised
 
