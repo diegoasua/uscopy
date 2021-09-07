@@ -4,6 +4,9 @@ from tqdm import tqdm
 
 # TODO: Consider default cast to float64 if safe for increased precision
 class KalmanDenoiser:
+    """
+    Main class for denoising via Kalman filtering.
+    """
     _variance = 0.05
     _gain = 0.08
 
