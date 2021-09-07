@@ -1,6 +1,5 @@
 import numpy as np
 from tqdm import tqdm
-# from numba import jit
 
 
 # TODO: Consider default cast to float64 if safe for increased precision
@@ -28,7 +27,7 @@ class KalmanDenoiser:
             raise ValueError("Gain must be between 0 and 1.")
         self._gain = value
 
-    # TODO: Speed up with numba (currently throws errors with @jit(nopython=True)
+    # TODO: Speed up with numba, break up function
     def filter(self, stack: np.array) -> np.array:
         """
         Performs Kalman denoising of a 3D array (time, width, height)
@@ -45,8 +44,7 @@ class KalmanDenoiser:
         ones = np.ones((width, height))
         denoised = np.zeros_like(stack)
 
-        # TODO: Fix tqdm to properly show error bar in terminal
-        for i_frame, frame in tqdm(enumerate(stack[1:])):
+        for i_frame, frame in enumerate(tqdm(stack[1:])):
             estimate = predicted / (predicted + noise)
             corrected = self._gain * previous + (1 - self._gain) * frame + estimate * (frame - previous)
 
@@ -58,21 +56,3 @@ class KalmanDenoiser:
         denoised = denoised[:-1]
 
         return denoised
-
-    def filter_rgb(self, parameter_list):
-        """
-        Deprecated, legacy from Java implementation.
-        """
-        raise NotImplementedError
-
-    def from_double(self, parameter_list):
-        """
-        Deprecated, legacy from Java implementation.
-        """
-        raise NotImplementedError
-
-    def to_double(self, parameter_list):
-        """
-        Deprecated, legacy from Java implementation.
-        """
-        raise NotImplementedError
