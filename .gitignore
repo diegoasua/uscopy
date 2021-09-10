@@ -1,4 +1,5 @@
-./vscode
+./.vscode
 ./uscopy.egg-info
 ./venv
-wokspace.code-workspace
+./idea
+workspace.code-workspace
