@@ -1,15 +1,21 @@
 from distutils.core import setup
-from setuptools import find_packages
+from setuptools import find_namespace_packages
+
 
 with open("requirements.txt") as f:
     requirements = f.read().splitlines()
+
+with open("README.md") as f:
+    long_description = f.read()
+
 
 setup(
     name="uscopy",
     version="0.1.0",
     author="Diego Asua",
     author_email="baxuaa@gmail.com",
-    packages=find_packages(),
+    license="MIT",
+    packages=find_namespace_packages(exclude=("tests*")),,
     install_requires=requirements,
     python_requires=">=3.8",
     classifiers=[
@@ -21,4 +27,6 @@ setup(
     ],
     keywords="imaging microscopy 2-photon time-series kalman",
     description="A set of tools for routine analysis of bioimaging time-series data.",
+    long_description=long_description,
+    url="https://github.com/shohamlab/uscopy",
 )
