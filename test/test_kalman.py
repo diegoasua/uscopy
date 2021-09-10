@@ -1,6 +1,6 @@
 import numpy as np
-from uscopy.kalman import KalmanDenoiser
 
+from uscopy.kalman import KalmanDenoiser
 
 stack = np.ones((10, 5, 5), dtype=np.uint16)
 denoiser = KalmanDenoiser()
