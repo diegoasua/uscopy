@@ -15,7 +15,7 @@ setup(
     author="Diego Asua",
     author_email="baxuaa@gmail.com",
     license="MIT",
-    packages=find_namespace_packages(exclude=("tests*")),,
+    packages=find_namespace_packages(exclude=("tests*")),
     install_requires=requirements,
     python_requires=">=3.8",
     classifiers=[
