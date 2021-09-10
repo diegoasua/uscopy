@@ -7,6 +7,7 @@ class KalmanDenoiser:
     """
     Main class for denoising via Kalman filtering.
     """
+
     _variance = 0.05
     _gain = 0.08
 
@@ -49,7 +50,11 @@ class KalmanDenoiser:
 
         for i_frame, frame in enumerate(tqdm(stack[1:])):
             estimate = predicted / (predicted + noise)
-            corrected = self._gain * previous + (1 - self._gain) * frame + estimate * (frame - previous)
+            corrected = (
+                self._gain * previous
+                + (1 - self._gain) * frame
+                + estimate * (frame - previous)
+            )
 
             predicted = predicted * (ones - estimate)
             previous = corrected
