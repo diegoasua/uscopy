@@ -20,9 +20,8 @@ pip install .
 
 ```python
 from uscopy.kalman import KalmanDenoiser
-from tifffile import imread
 
-stack = imread(...)
+
 denoiser = KalmanDenoiser()
 denoiser.gain = 0.75
 denoiser.variance = 0.5
