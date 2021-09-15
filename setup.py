@@ -23,7 +23,7 @@ setup(
     extras_require=dict(dev=requirements_dev),
     python_requires=">=3.8",
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - alpha",
         "Intended Audience :: Science/Research",
         "Natural Language :: English",
         "Programming Language :: Python :: 3.8",

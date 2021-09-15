@@ -1,11 +1,11 @@
 import numpy as np
-from pathlib import Path
 import os
+from pathlib import Path
 import re
 import shutil
 from tifffile import imread, imsave
-from warnings import warn
 import tqdm
+from warnings import warn
 
 
 def stack_single_tiffs(base_dir: str, remove_old=True, verbose=True) -> None:
