@@ -17,7 +17,6 @@ pip install .
 
 # Usage
 
-
 ```python
 from uscopy.kalman import KalmanDenoiser
 
