@@ -3,6 +3,7 @@
 \venv/
 \.vscode/
 workspace.code-workspace
+__pycache__
 
 arrayqueues\.egg-info/
 
@@ -12,6 +13,7 @@ arrayqueues/__pycache__/
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
